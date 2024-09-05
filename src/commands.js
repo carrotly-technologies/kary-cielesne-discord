@@ -12,6 +12,12 @@ const commonOptions = [
         name: "username",
         description: "Nazwa użytkownika",
         required: true
+    },
+    {
+        type: ApplicationCommandOptionType.STRING,
+        name: "reason",
+        description: "Powód",
+        required: false
     }
 ]
 

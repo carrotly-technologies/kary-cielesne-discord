@@ -69,24 +69,39 @@ client.on(Events.GuildMemberRemove, async (member) => {
 });
 
 
+const parseMessage = async (interaction) => {
+    const username = interaction.options.getMember('username');
+    const reason = interaction.options.getString('reason');
+    if(reason) {
+        return `${username.user.username}, ${reason}`;
+    }
+    if(interaction.commandName === COMMAND_NAME.ADD) {
+        return `${username.user.username}, jest jeden krok bliżej od wygrania kary cielesnej!`;
+    }
+    if(interaction.commandName === COMMAND_NAME.SUBTRACT) {
+        return `${username.user.username}, prawdopodobnie nie bedzie bity/bita!`;
+    }
+
+}
+
 client.on(Events.InteractionCreate, async interaction => {
 	if (!interaction.isChatInputCommand()) return;
 	if (interaction.commandName === COMMAND_NAME.ADD) {
-        const username = interaction.options.getMember('username');
         console.log('Adding points to: ', username.user.username);
         await backendHandler.addPoints(username.user.username);
-		await interaction.reply({ 
-            content: `${username.user.username}, jest jeden krok bliżej od wygrania kary cielesnej!`, 
+
+        await interaction.reply({ 
+            content: parseMessage(interaction), 
             embeds: [await getEmbed()]
         });
 	}
-
+    
     if (interaction.commandName === COMMAND_NAME.SUBTRACT) {
-        const username = interaction.options.getMember('username');
         console.log('Subtracting points from: ', username.user.username);
         await backendHandler.subtractPoints(username.user.username);
-		await interaction.reply({ 
-            content: `${username.user.username}, prawdopodobnie nie bedzie bity/bita!`, 
+		
+        await interaction.reply({ 
+            content: parseMessage(interaction), 
             embeds: [await getEmbed()]
         });
 	}
