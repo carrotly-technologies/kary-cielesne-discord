@@ -47,15 +47,16 @@ export const handleBotCommands = async (applicationId, authToken, publicKey, gui
 
     const commands = await interaction.getApplicationCommands(guildId);
     commands.forEach(async command => {
-        if(
+        /* if(
             command.name !== COMMAND_NAME.ADD && 
             command.name !== COMMAND_NAME.SUBTRACT && 
             command.name !== COMMAND_NAME.SCOREBOARD
         ) {
             interaction.deleteApplicationCommand(command.id, guildId);
             interaction.deleteApplicationCommand(command.id);
-        }
-        
+        } */
+        interaction.deleteApplicationCommand(command.id, guildId);
+        interaction.deleteApplicationCommand(command.id);
     })
     const command = commands.map(command => command.name);
     if(!command.includes(COMMAND_NAME.ADD)) {
