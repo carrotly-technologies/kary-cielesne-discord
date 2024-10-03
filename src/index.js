@@ -84,8 +84,14 @@ const parseMessage = async (interaction) => {
 
 }
 
+client.on(Events.Raw, async (packet) => {
+    console.log('Raw packet: ', packet);
+});
+
+
 client.on(Events.InteractionCreate, async interaction => {
 	if (!interaction.isChatInputCommand()) return;
+    console.log('Command: ', interaction.commandName);
 	if (interaction.commandName === COMMAND_NAME.ADD) {
         const username = interaction.options.getMember('username');
         console.log('Adding points to: ', username.user.username);
