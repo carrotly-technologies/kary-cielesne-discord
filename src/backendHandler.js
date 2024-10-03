@@ -47,6 +47,7 @@ export class BackendHandler {
         .catch((error) => {
             console.error(error);
         })
+        console.log(response);
         return response;
     }
 

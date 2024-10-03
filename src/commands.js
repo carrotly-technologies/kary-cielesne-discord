@@ -45,7 +45,7 @@ export const handleBotCommands = async (applicationId, authToken, publicKey, gui
         publicKey
     });
 
-    const commands = await interaction.getApplicationCommands(guildId);
+    let commands = await interaction.getApplicationCommands(guildId);
     await Promise.all(commands.map(async command => {
         /* if(
             command.name !== COMMAND_NAME.ADD && 
@@ -58,6 +58,7 @@ export const handleBotCommands = async (applicationId, authToken, publicKey, gui
         await interaction.deleteApplicationCommand(command.id, guildId);
         await interaction.deleteApplicationCommand(command.id);
     }));
+    commands = await interaction.getApplicationCommands(guildId);
     const command = commands.map(command => command.name);
     if(!command.includes(COMMAND_NAME.ADD)) {
         console.log('Missing add command, adding it...');
