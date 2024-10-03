@@ -84,9 +84,9 @@ const parseMessage = async (interaction) => {
 
 }
 
-client.on(Events.Raw, async (packet) => {
+/* client.on(Events.Raw, async (packet) => {
     console.log('Raw packet: ', packet);
-});
+}); */
 
 
 client.on(Events.InteractionCreate, async interaction => {
