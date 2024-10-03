@@ -3,18 +3,20 @@ import axios from 'axios';
 export class BackendHandler {
     backendUrl;
     constructor(backendUrl) {
+        console.log('BackendHandler initialized with url: ', backendUrl);
         this.backendUrl = backendUrl;
     }
 
     getUsers = async () => {
-        const response = await axios.get(this.backendUrl + '/user/all')
-        .then((response) => {
-            return response.data;
-        })
-        .catch((error) => {
+        try {
+            const response = await axios.get(this.backendUrl + '/user/all')
+            .then((response) => {
+                return response.data;
+            })
+            return response;
+        } catch (error) {
             console.error(error);
-        })
-        return response;
+    }
     }
 
     addUser = async (username) => {
@@ -40,15 +42,15 @@ export class BackendHandler {
     }
 
     subtractPoints = async (username) => {
-        const response = await axios.post(this.backendUrl + '/user/points/subtract', {name: username})
-        .then((response) => {
-            return response.data;
-        })
-        .catch((error) => {
+        try {
+            const response = await axios.post(this.backendUrl + '/user/points/subtract', {name: username})
+            .then((response) => {
+                return response.data;
+            })
+            return response;
+        } catch (error) {
             console.error(error);
-        })
-        console.log(response);
-        return response;
+        }
     }
 
     getCurrentUserNames = async () => {
